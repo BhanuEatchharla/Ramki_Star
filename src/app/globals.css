@@ -1,0 +1,234 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens & utilities migrated from Vite index.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Bus Management System Design System - Professional SaaS Theme */
+
+@layer base {
+  :root {
+    /* Light Mode - Clean & Professional */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --hero-gradient: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(212 100% 48%) 100%);
+    --card-gradient: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(220 13% 98%) 100%);
+    --golden-accent: 38 92% 50%;
+    --golden-glow: 38 92% 50% / 0.2;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 13% 95%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 220 13% 95%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.75rem;
+
+    --shadow-soft: 0 2px 8px hsl(222 47% 11% / 0.08);
+    --shadow-medium: 0 4px 16px hsl(222 47% 11% / 0.12);
+    --shadow-large: 0 8px 32px hsl(222 47% 11% / 0.16);
+    --shadow-golden: 0 0 24px hsl(38 92% 50% / 0.3);
+  }
+
+  .dark {
+    /* Dark Mode - Deep Navy with Golden Accents */
+    --background: 222 47% 7%;
+    --foreground: 0 0% 100%;
+
+    --hero-gradient: linear-gradient(135deg, hsl(222 47% 7%) 0%, hsl(222 47% 11%) 100%);
+    --card-gradient: linear-gradient(145deg, hsl(222 47% 9%) 0%, hsl(222 47% 11%) 100%);
+    --golden-accent: 38 92% 55%;
+    --golden-glow: 38 92% 55% / 0.25;
+
+    --card: 222 47% 10%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 222 47% 10%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 38 92% 55%;
+    --primary-foreground: 222 47% 7%;
+
+    --secondary: 222 47% 14%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 222 47% 14%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 38 92% 55%;
+    --accent-foreground: 222 47% 7%;
+
+    --destructive: 0 63% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 222 47% 18%;
+    --input: 222 47% 18%;
+    --ring: 38 92% 55%;
+
+    --shadow-soft: 0 2px 8px hsl(0 0% 0% / 0.3);
+    --shadow-medium: 0 4px 16px hsl(0 0% 0% / 0.4);
+    --shadow-large: 0 8px 32px hsl(0 0% 0% / 0.5);
+    --shadow-golden: 0 0 32px hsl(38 92% 55% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border transition-colors duration-300;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+
+  /* Hero Section Styles */
+  .hero-gradient {
+    background: var(--hero-gradient);
+  }
+
+  .card-gradient {
+    background: var(--card-gradient);
+  }
+
+  /* Golden Star Feature Accent */
+  .star-feature {
+    @apply relative;
+  }
+
+  .star-feature::before {
+    content: '';
+    @apply absolute inset-0 rounded-lg;
+    background: linear-gradient(135deg, hsl(var(--golden-accent)) 0%, hsl(var(--golden-accent) / 0.5) 100%);
+    opacity: 0.1;
+    transition: opacity 0.3s ease;
+  }
+
+  .star-feature:hover::before {
+    opacity: 0.2;
+  }
+
+  /* Smooth Animations */
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* ✨ Shimmer Animation for Premium Buttons */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3.5s infinite linear;
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+  }
+
+  /* Glow Effects */
+  .glow-golden {
+    box-shadow: var(--shadow-golden);
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-large);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent;
+  }
+}
