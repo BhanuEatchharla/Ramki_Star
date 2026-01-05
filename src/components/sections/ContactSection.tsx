@@ -7,6 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase-client";
+
 
 export const ContactSection = () => {
   const { toast } = useToast();
@@ -29,23 +31,47 @@ export const ContactSection = () => {
     "Role-Based Access",
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Demo Request Submitted!",
-      description: "Our team will contact you within 24 hours.",
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  /* 1️⃣ Save to Supabase */
+  const { error } = await supabase
+    .from("ramki_star")
+    .insert({
+      name: formData.name,
+      organization: formData.organization,
+      email: formData.email,
+      phone: formData.phone,
+      demo_date: formData.demoDate || null,
+      modules: formData.modules,
+      message: formData.message,
     });
 
-    setFormData({
-      name: "",
-      organization: "",
-      email: "",
-      phone: "",
-      demoDate: "",
-      modules: [],
-      message: "",
-    });
-  };
+  if (error) {
+    console.error(error);
+    alert("Failed to submit form");
+    return;
+  }
+
+  /* 2️⃣ Trigger Email API */
+  await fetch("/api/contact-mail", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
+
+  alert("Demo request submitted successfully!");
+
+  setFormData({
+    name: "",
+    organization: "",
+    email: "",
+    phone: "",
+    demoDate: "",
+    modules: [],
+    message: "",
+  });
+};
 
   const handleModuleToggle = (module: string) => {
     setFormData((prev) => ({
